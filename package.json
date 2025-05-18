@@ -1,18 +1,13 @@
 {
-  "name": "edtech-platform-root",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "build": "cd adaptive-learning && npm install && npm run build",
-    "start": "cd adaptive-learning && npm run preview",
-    "vercel-build": "cd adaptive-learning && npm install && npm run build"
-  },
-  "engines": {
-    "node": ">=18.0.0"
-  },
-  "build": {
-    "env": {
-      "NODE_ENV": "production"
-    }
+    "builds": [
+      {
+        "src": "adaptive-learning/package.json",
+        "use": "@vercel/static-build",
+        "config": { "distDir": "adaptive-learning/dist" }
+      }
+    ],
+    "routes": [
+      { "src": "/(.*)", "dest": "/adaptive-learning/$1" }
+    ]
   }
-} 
+  
