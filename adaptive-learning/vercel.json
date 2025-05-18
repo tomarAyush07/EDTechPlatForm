@@ -1,0 +1,11 @@
+{
+  "buildCommand": "cd adaptive-learning && npm install && npm run build",
+  "outputDirectory": "adaptive-learning/dist",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+} 
