@@ -316,20 +316,38 @@ const learningStyles = [
   { id: 4, name: 'Kinesthetic Learner', description: 'Learn best through hands-on activities' },
 ];
 
+interface FormData {
+  name: string;
+  email: string;
+  age: string;
+  educationLevel: string;
+  selectedCourses: number[];
+  learningStyle: string;
+  studyGoals: string;
+  studyHours: string;
+  preferredLearningTime: string[];
+  learningEnvironment: string;
+  previousExperience: string;
+  motivation: string;
+  challenges: string;
+  supportNeeded: string;
+  [key: string]: string | number[] | string[]; // Add index signature
+}
+
 export const Onboarding: React.FC = () => {
   const navigate = useNavigate();
   const { setUserData } = useUser();
   const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     age: '',
     educationLevel: '',
-    selectedCourses: [] as number[],
+    selectedCourses: [],
     learningStyle: '',
     studyGoals: '',
     studyHours: '',
-    preferredLearningTime: [] as string[],
+    preferredLearningTime: [],
     learningEnvironment: '',
     previousExperience: '',
     motivation: '',
@@ -387,12 +405,14 @@ export const Onboarding: React.FC = () => {
     }));
   };
 
-  const handleCheckboxChange = (name: string, value: string) => {
+  const handleCheckboxChange = (name: keyof FormData, value: string) => {
     setFormData(prev => ({
       ...prev,
-      [name]: prev[name].includes(value)
-        ? prev[name].filter(item => item !== value)
-        : [...prev[name], value]
+      [name]: Array.isArray(prev[name]) 
+        ? (prev[name] as string[]).includes(value)
+          ? (prev[name] as string[]).filter(item => item !== value)
+          : [...(prev[name] as string[]), value]
+        : prev[name]
     }));
   };
 
