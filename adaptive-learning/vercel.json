@@ -1,11 +1,19 @@
 {
-  "buildCommand": "cd adaptive-learning && npm install && npm run build",
-  "outputDirectory": "adaptive-learning/dist",
-  "framework": "vite",
-  "rewrites": [
+  "version": 2,
+  "builds": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "src": "adaptive-learning/package.json",
+      "use": "@vercel/node",
+      "config": {
+        "buildCommand": "cd adaptive-learning && npm install && npm run build",
+        "outputDirectory": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 } 
